@@ -34,7 +34,7 @@ public class BinaryTreeFromInorderPreorder {
             inorderIndexMap.put(inorder[i], i);
         }
 
-        return solve(preorder, 0, preorder.length-1);
+        return solve(preorder, 0, inorder.length-1);
     }
     private static TreeNode solve(int[] preorder, int st, int ed){
         if (st>ed){
