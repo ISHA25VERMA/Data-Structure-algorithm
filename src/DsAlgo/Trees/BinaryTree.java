@@ -156,167 +156,175 @@ public class BinaryTree {
         int left = diameter(root.left);
         int right = diameter(root.right);
 
-        int left_right = height(root.left) + 1+height(root.right);
+        int left_right = height(root.left) +height(root.right);
 
         int ans = Math.max(Math.max(left,right), left_right);
 
         return ans;
     }
 
-    private class Pair{
+    private class Pair {
         int diameter;
         int height;
-        Pair(int diameter, int height){
+
+        Pair(int diameter, int height) {
             this.diameter = diameter;
             this.height = height;
         }
-        Pair(){
+
+        Pair() {
 
         }
-    }
-
-    public int diameterFast(TreeNode node){
-        return diameterFastInternal(node).diameter;
-    }
-
-    private Pair diameterFastInternal(TreeNode node){
-        if (node == null){
-            return new Pair(0,0);
         }
 
-        Pair left = diameterFastInternal(node.left);
-        Pair right = diameterFastInternal(node.right);
-
-        int op1 = left.diameter;
-        int op2 = right.diameter;
-        int op3 = left.height +right.height +1;
-
-
-        Pair ans = new Pair();
-        ans.diameter = Math.max(Math.max(op1, op2), op3);
-        ans.height = Math.max(left.height, right.height) +1;
-
-        return ans;
-    }
-
-    boolean isBalanced(TreeNode root){
-        if (root == null){
-            return true;
+        public int diameterFast(TreeNode node) {
+            return diameterFastInternal(node).diameter;
         }
 
-        boolean left = isBalanced(root.left);
-        boolean right = isBalanced(root.right);
+        private Pair diameterFastInternal(TreeNode node) {
+            if (node == null) {
+                return new Pair(0, 0);
+            }
 
-        boolean diff = (Math.abs(height(root.left)-height(root.right)) <=1);
+            Pair left = diameterFastInternal(node.left);
+            Pair right = diameterFastInternal(node.right);
 
-        if (left && right && diff){
-            return true;
-        }else{
-            return false;
-        }
-    }
+            int op1 = left.diameter;
+            int op2 = right.diameter;
+            int op3 = left.height + right.height + 1;
 
-    class PairIsBalanced{
-        int height;
-        boolean ans;
-        PairIsBalanced(int height, boolean ans){
-            this.height = height;
-            this.ans = ans;
-        }
-        PairIsBalanced(){}
-    }
 
-    private PairIsBalanced internalIsBalanced(TreeNode root){
-        if (root == null){
-            return new PairIsBalanced(0, true);
+            Pair ans = new Pair();
+            ans.diameter = Math.max(Math.max(op1, op2), op3);
+            ans.height = Math.max(left.height, right.height) + 1;
+
+            return ans;
         }
 
-        PairIsBalanced left  = internalIsBalanced(root.left);
-        PairIsBalanced right = internalIsBalanced(root.right);
+        boolean isBalanced(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
 
-        boolean ans1 = left.ans;
-        boolean ans2 = right.ans;
-        boolean ans3 = (Math.abs(left.height - right.height)<=1);
+            boolean left = isBalanced(root.left);
+            boolean right = isBalanced(root.right);
 
-        PairIsBalanced ans = new PairIsBalanced();
-        ans.ans = (ans1 && ans2 && ans3);
-        ans.height = Math.max(left.height, right.height) +1;
+            boolean diff = (Math.abs(height(root.left) - height(root.right)) <= 1);
 
-        return ans;
-    }
-
-    public boolean isBalancedFast(TreeNode root){
-        return internalIsBalanced(root).ans;
-    }
-
-    public boolean areIdentical (TreeNode root1, TreeNode root2){
-
-        //base conditions
-        if (root1 == null && root2 == null){
-            return true;
-        }else if (root1 == null || root2 == null){
-            return false;
+            if (left && right && diff) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
+        class PairIsBalanced {
+            int height;
+            boolean ans;
 
-        if (root1.data == root2.data) {
-            return areIdentical(root1.left, root2.left) && areIdentical(root1.right, root2.right);
-        }else {
-            return false;
-        }
-    }
+            PairIsBalanced(int height, boolean ans) {
+                this.height = height;
+                this.ans = ans;
+            }
 
-
-    //Sum Tree
-    private class PairIsSum {
-        int sum;
-        boolean ans;
-        PairIsSum(){}
-        PairIsSum(int sum, boolean ans){
-            this.sum = sum;
-            this.ans = ans;
-        }
-    }
-
-    PairIsSum internalIsSum(TreeNode root){
-        if (root == null){
-            return new PairIsSum(0, true);
+            PairIsBalanced() {
+            }
         }
 
-        if (root.left == null && root.right == null){
-            return new PairIsSum(root.data, true);
+        private PairIsBalanced internalIsBalanced(TreeNode root) {
+            if (root == null) {
+                return new PairIsBalanced(0, true);
+            }
+
+            PairIsBalanced left = internalIsBalanced(root.left);
+            PairIsBalanced right = internalIsBalanced(root.right);
+
+            boolean ans1 = left.ans;
+            boolean ans2 = right.ans;
+            boolean ans3 = (Math.abs(left.height - right.height) <= 1);
+
+            PairIsBalanced ans = new PairIsBalanced();
+            ans.ans = (ans1 && ans2 && ans3);
+            ans.height = Math.max(left.height, right.height) + 1;
+
+            return ans;
+        }
+
+        public boolean isBalancedFast(TreeNode root) {
+            return internalIsBalanced(root).ans;
+        }
+
+        public boolean areIdentical(TreeNode root1, TreeNode root2) {
+
+            //base conditions
+            if (root1 == null && root2 == null) {
+                return true;
+            } else if (root1 == null || root2 == null) {
+                return false;
+            }
+
+
+            if (root1.data == root2.data) {
+                return areIdentical(root1.left, root2.left) && areIdentical(root1.right, root2.right);
+            } else {
+                return false;
+            }
         }
 
 
-        PairIsSum left = internalIsSum(root.left);
-        PairIsSum right = internalIsSum(root.right);
-        boolean main = ((left.sum + right.sum) == root.data);
+        //Sum Tree
+        private class PairIsSum {
+            int sum;
+            boolean ans;
 
-        PairIsSum ans = new PairIsSum();
-        ans.ans = (left.ans && right.ans && main);
-        ans.sum = left.sum + right.sum +root.data;
+            PairIsSum() {
+            }
 
-        return ans;
+            PairIsSum(int sum, boolean ans) {
+                this.sum = sum;
+                this.ans = ans;
+            }
+        }
 
-    }
+        PairIsSum internalIsSum(TreeNode root) {
+            if (root == null) {
+                return new PairIsSum(0, true);
+            }
 
-    boolean isSumTree(TreeNode root)
-    {
-        return internalIsSum(root).ans;
-    }
+            if (root.left == null && root.right == null) {
+                return new PairIsSum(root.data, true);
+            }
 
-//    public void printTree(TreeNode node){
-//        if (node == null){
-//            return;
-//        }
-//        System.out.println(node.data);
-//        if (node.left!= null){
-//            printTree(node.left);
-//        }
-//
-//        if (node.right!=null){
-//            printTree(node.right);
-//        }
-//
-//    }
+
+            PairIsSum left = internalIsSum(root.left);
+            PairIsSum right = internalIsSum(root.right);
+            boolean main = ((left.sum + right.sum) == root.data);
+
+            PairIsSum ans = new PairIsSum();
+            ans.ans = (left.ans && right.ans && main);
+            ans.sum = left.sum + right.sum + root.data;
+
+            return ans;
+
+        }
+
+        boolean isSumTree(TreeNode root) {
+            return internalIsSum(root).ans;
+        }
+
+        public void printTree(TreeNode node) {
+            if (node == null) {
+                return;
+            }
+            System.out.println(node.data);
+            if (node.left != null) {
+                printTree(node.left);
+            }
+
+            if (node.right != null) {
+                printTree(node.right);
+            }
+
+        }
+
 }

@@ -2,7 +2,7 @@ package DsAlgo.maths;
 
 public class GCD_HCF_LCM {
     public static void main(String[] args) {
-        System.out.println(hcf(20,5));
+        System.out.println(hcf(4,9));
         System.out.println("lcm : "+ lcm(3,7));
     }
     public static int hcf(int a, int b ){

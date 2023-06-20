@@ -17,7 +17,7 @@ public class Permutation {
         }
         for(int i = 0; i<=processed.length(); i++){
             String first = processed.substring(0,i);
-            String last = processed.substring(i,processed.length());
+            String last = processed.substring(i);
 
             getPermutations(first+unprocessed.charAt(0)+last,unprocessed.substring(1));
         }

@@ -17,11 +17,11 @@ public class SumMaxMinOfSubarrayOfKSize {
 
         for (int i = 0; i<k; i++){
             while(!max.isEmpty() && arr[max.getLast()] <= arr[i]){
-                max.pop();
+                max.removeLast();
             }
 
             while (!min.isEmpty() && arr[min.getLast()]>=arr[i]){
-                min.pop();
+                min.removeLast();
             }
 
             max.add(i);
@@ -33,21 +33,21 @@ public class SumMaxMinOfSubarrayOfKSize {
             sum += arr[max.getFirst()]+arr[min.getLast()];
 
             //removal
-            while(!max.isEmpty() &&( (i - max.getFirst())>=k)){
-                max.poll();
-            }
-
-            while (!min.isEmpty() &&( i-min.getFirst()>=k)){
-                min.poll();
-            }
-
-            //add
-            while(!max.isEmpty() && (arr[max.getLast()] <= arr[i])){
+            while(!max.isEmpty() &&( (i - max.peekFirst())>=k)){
                 max.pop();
             }
 
-            while (!min.isEmpty() && (arr[min.getLast()]>=arr[i])){
-                min.pop();
+            while (!min.isEmpty() &&( i-min.peekFirst()>=k)){
+                min.removeFirst();
+            }
+
+            //add
+            if(!max.isEmpty() && (arr[max.peekLast()] <= arr[i])){
+                max.removeFirst();
+            }
+
+            if (!min.isEmpty() && (arr[min.peekLast()]>=arr[i])){
+                min.removeLast();
             }
 
             max.addLast(i);
@@ -56,7 +56,7 @@ public class SumMaxMinOfSubarrayOfKSize {
 
         }
 
-        sum += arr[max.getFirst()]+arr[min.getFirst()]  ;
+        sum += arr[max.getFirst()]+arr[min.getLast()]  ;
 
         return sum;
     }

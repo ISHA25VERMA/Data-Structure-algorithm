@@ -2,7 +2,7 @@ package DsAlgo.maths;
 
 public class SquareRootOfNumber {
     public static void main(String[] args) {
-        System.out.println((double) squareRoot(2147395599,3));
+        System.out.println((double) squareRoot(2147395599,0));
     }
 
     public static double squareRoot(int n , int decimal){

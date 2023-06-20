@@ -14,6 +14,7 @@ public class DeleteMiddleElement {
         stack.push(11);
         stack.push(1);
 
+
         deleteMiddle(stack, 8);
         for(int i = 0; i<8-1; i++){
             System.out.println(stack.pop());

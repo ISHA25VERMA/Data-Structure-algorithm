@@ -9,7 +9,7 @@ public class CoderByte {
     String StringChallenge(String str){
         ArrayList<Character> delim = new ArrayList<>();
         int length = str.length();
-
+        int size = delim.size();
 
         return str;
     }

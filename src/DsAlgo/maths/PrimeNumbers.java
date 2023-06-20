@@ -2,8 +2,9 @@ package DsAlgo.maths;
 
 public class PrimeNumbers {
     public static void main(String[] args) {
-        int n = 121;
+        int n = 735;
         System.out.println(checkPrime(n));
+
     }
 
     public static boolean checkPrime(int n){
